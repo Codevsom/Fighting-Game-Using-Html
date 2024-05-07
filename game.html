@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>BOXING PRACTICE GAME</title>
+  <style>
+  *{
+    margin:0;
+    padding:0;
+  }
+  body{
+    background:url('Assets/bg.jpg') no-repeat;
+    backdrop-filter:brightness(80%);
+  }
+   .fighter{
+     height:300px;
+     width:300px;
+     background:url('Assets/pos1.png') no-repeat;
+     background-size:cover;
+     background-position:0 0;
+     transform:translateX(0px);
+   }
+   .punch_anime{
+     animation:punch 0.4s;
+   }
+   @keyframes punch{
+     0%,100%{
+       background:url('Assets/pos1.png') no-repeat;
+            background-size:cover;
+     background-position:0 0;
+     }
+     25%{
+       background:url('Assets/pos2.png') no-repeat;
+            background-size:cover;
+            background-position:0 0;
+     }
+      50%{
+       background:url('Assets/pos3.png') no-repeat;
+            background-size:cover;
+            background-position:0 0;
+     }
+      75%{
+       background:url('Assets/pos4.png') no-repeat;
+            background-size:cover;
+            background-position:0 0;
+     }
+   }
+   
+  
+   .punch{
+     height:50px;
+     width:50px;
+     background-color:#000000BD;
+     border:none;
+     border-radius:50%;
+     color:white;
+     font-size:24px;
+     margin-left:300px;
+     position: fixed;
+     z-index:1;
+   }
+   .right{
+      height:55px;
+     width:75px;
+     background-color:#000000BD;
+     border:none;
+     color:white;
+     font-size:24px;
+     position:fixed;
+     z-index:1;
+   }
+   .left{
+       height:55px;
+     width:75px;
+     background-color:#000000BD;
+     border:none;
+     color:white;
+     font-size:24px;
+   
+   }
+   .gamecontainer{    
+     transform:rotate(90deg);
+   }
+   .btn_holder{
+     display:flex;
+   }
+   .enemy{
+     height:350px;
+     width:300px;
+     position: absolute;
+     top:10px;
+     background:url('Assets/enemy.png') no-repeat;
+    background-size:300px 350px;
+   background-position:30px -40px;
+   animation:idle 0.5s infinite;
+   }
+   @keyframes idle{
+     0%,100%{
+       background:url('Assets/enemy.png') no-repeat;
+    background-size:300px 350px;
+   background-position:30px -40px;
+     }
+     50%{
+       background:url('Assets/enpos2.png') no-repeat;
+    background-size:300px 350px;
+   background-position:30px -40px;
+     }
+   }
+   @keyframes ensmash{
+     0%{
+       background:url('Assets/enemy.png') no-repeat;
+       background-size:300px 350px;
+       background-position:30px -40px;
+     }
+     25%{
+       background:url('Assets/enpos2.png') no-repeat;
+       background-size:300px 350px;
+       background-position:30px -40px;
+     }
+     50%{
+       background:url('Assets/enpos3.png') no-repeat;
+       background-size:300px 350px;
+       background-position:30px -40px;
+     }
+     75%{
+       background:url('Assets/enpos4.png') no-repeat;
+       background-size:300px 350px;
+       background-position:30px -40px;
+   
+     }
+     100%{
+       background:url('Assets/enpos5.png') no-repeat;
+            background-size:300px 350px;
+            background-position:30px -40px;
+     }
+   }
+.enemyattack{
+  animation:ensmash 0.6s;
+}
+.playerhealth{
+  width:100px;
+  height:20px;
+  transform:rotate(90deg);
+  position: absolute;
+  left:250px;
+  background-color:#42445A;
+  top:50px;
+}
+.bar{
+  background-color:#00D963;
+  width:100px;
+  height:20px;
+}
+.enemyhealth{
+  width:100px;
+  height:20px;
+  position: absolute;
+  left:400px;
+  background-color:#160A54;
+  top:3px;
+
+}
+.ebar{
+   background-color:#00D963;
+  width:100px;
+  height:20px;
+
+ }
+ p.hittext{
+   color:white;
+   position:absolute;
+   top:2px;
+   left:320px;
+   font-size:10px;
+   font-family: monospace;
+ }
+p.hittext_p{
+    color:white;
+   position:absolute;
+   top:px;
+   left:0px;
+   font-size:10px;
+   font-family: monospace;
+ }
+  </style>
+</head>
+<body onload="gameloop">
+  <audio id="bgm" src="Assets/Resurgence.mp3" loop>
+  </audio>
+  <div class="playerhealth">
+    <div class="bar">
+      YOU
+    </div>
+      <p id="hittext" class="hittext"></p>
+      <p id="hittext_p" class="hittext_p"></p>
+    <div class="enemyhealth">
+      <div class="ebar">
+        ENEMY
+      </div>
+    </div>
+  </div>
+  <div class="gamecontainer">
+    <div class="enemy"></div>
+  <div class="fighter">
+  </div>
+  
+  <div class="btn_holder">
+  <div class="">
+   <button class="left" onclick="moveleft()">«</button>
+     </div>
+     <div class="">
+    <button class="right" onclick="moveright()">»</button>
+    </div>
+
+<div class="">
+    <button class="punch" type="submit" onclick="jab()">A</button>
+      </div>
+  </div>
+  </div>
+<script>
+pos = 0;
+sprite = document.querySelector('.fighter');
+enemy = document.querySelector('.enemy');
+offset= 200;
+var bgm = document.getElementById("bgm");
+player_health = 100;
+enemy_health = 100;
+p_hb = document.querySelector('.bar');
+e_hb = document.querySelector('.ebar');
+  
+function jab(){
+  sprite.classList.add('punch_anime');
+  bgm.play();
+  enemy_attack()
+  setTimeout(function(){
+    sprite.classList.remove('punch_anime');
+  },300);
+hitchance = Math.floor(Math.random()*100+1);
+  if(hitchance <50){
+  enemy_health -= 10;
+  if(enemy_health<4){
+    enemy_health = 0;
+  }
+  e_hb.style.width = `${enemy_health}px`;
+   if(parseInt(e_hb.style.width) <= 0){
+    alert("you win! \nCongratulations You've defeated the enemy");
+    location.reload();
+ 
+  }else{
+    enemy_health+=3;
+   e_hb.style.width = `${enemy_health}px`
+  }
+  }
+  console.log(e_hb.style.width);
+}
+function enemy_attack(){
+  enemy.classList.add('enemyattack');
+  setTimeout(function(){
+    enemy.classList.remove('enemyattack');
+  },600); 
+  enhitchance = Math.floor(Math.random()*100+1);
+  if(enhitchance<50){
+  player_health -= 10;
+  document.getElementById('hittext').innerHTML="OPPONENT ATTACK SUCCESSFUL";
+  if(player_health<4){
+    player_health=0;
+  }
+  p_hb.style.width = `${player_health}px`;
+  if(parseInt(p_hb.style.width) <= 0){
+    alert("you lost");
+    location.reload();
+  }
+  }else{
+    player_health += 2;
+    p_hb.style.width = `${player_health}px`;
+    document.getElementById('hittext').innerHTML="OPPONENT MISSED AN ATTACK!";
+  }
+}
+function gameloop(){
+  moveenemy()
+}
+setInterval(gameloop,1000/65);
+function moveright(){
+  pos= pos+30;
+  sprite.style.transform=`translateX(${pos}px) `;
+}
+function moveleft(){
+  pos=pos-30;
+  sprite.style.transform=`translateX(${pos}px)`;
+}
+function moveenemy(){
+  enemypos = pos + offset;
+  if (enemypos > 0 && enemypos < 300){
+  enemy.style.transform = `translateX(${enemypos}px)`;
+  }
+}
+</script>
+</body>
+</html>
