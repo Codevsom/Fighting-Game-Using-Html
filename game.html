@@ -10,13 +10,13 @@
     padding:0;
   }
   body{
-    background:url('Assets/bg.jpg') no-repeat;
+    background:url('bg.jpg') no-repeat;
     backdrop-filter:brightness(80%);
   }
    .fighter{
      height:300px;
      width:300px;
-     background:url('Assets/pos1.png') no-repeat;
+     background:url('pos1.png') no-repeat;
      background-size:cover;
      background-position:0 0;
      transform:translateX(0px);
@@ -26,22 +26,22 @@
    }
    @keyframes punch{
      0%,100%{
-       background:url('Assets/pos1.png') no-repeat;
+       background:url('pos1.png') no-repeat;
             background-size:cover;
      background-position:0 0;
      }
      25%{
-       background:url('Assets/pos2.png') no-repeat;
+       background:url('pos2.png') no-repeat;
             background-size:cover;
             background-position:0 0;
      }
       50%{
-       background:url('Assets/pos3.png') no-repeat;
+       background:url('pos3.png') no-repeat;
             background-size:cover;
             background-position:0 0;
      }
       75%{
-       background:url('Assets/pos4.png') no-repeat;
+       background:url('pos4.png') no-repeat;
             background-size:cover;
             background-position:0 0;
      }
@@ -90,47 +90,47 @@
      width:300px;
      position: absolute;
      top:10px;
-     background:url('Assets/enemy.png') no-repeat;
+     background:url('enemy.png') no-repeat;
     background-size:300px 350px;
    background-position:30px -40px;
    animation:idle 0.5s infinite;
    }
    @keyframes idle{
      0%,100%{
-       background:url('Assets/enemy.png') no-repeat;
+       background:url('enemy.png') no-repeat;
     background-size:300px 350px;
    background-position:30px -40px;
      }
      50%{
-       background:url('Assets/enpos2.png') no-repeat;
+       background:url('enpos2.png') no-repeat;
     background-size:300px 350px;
    background-position:30px -40px;
      }
    }
    @keyframes ensmash{
      0%{
-       background:url('Assets/enemy.png') no-repeat;
+       background:url('enemy.png') no-repeat;
        background-size:300px 350px;
        background-position:30px -40px;
      }
      25%{
-       background:url('Assets/enpos2.png') no-repeat;
+       background:url('enpos2.png') no-repeat;
        background-size:300px 350px;
        background-position:30px -40px;
      }
      50%{
-       background:url('Assets/enpos3.png') no-repeat;
+       background:url('enpos3.png') no-repeat;
        background-size:300px 350px;
        background-position:30px -40px;
      }
      75%{
-       background:url('Assets/enpos4.png') no-repeat;
+       background:url('enpos4.png') no-repeat;
        background-size:300px 350px;
        background-position:30px -40px;
    
      }
      100%{
-       background:url('Assets/enpos5.png') no-repeat;
+       background:url('enpos5.png') no-repeat;
             background-size:300px 350px;
             background-position:30px -40px;
      }
@@ -186,7 +186,7 @@ p.hittext_p{
   </style>
 </head>
 <body onload="gameloop">
-  <audio id="bgm" src="Assets/Resurgence.mp3" loop>
+  <audio id="bgm" src="Resurgence.mp3" loop>
   </audio>
   <div class="playerhealth">
     <div class="bar">
